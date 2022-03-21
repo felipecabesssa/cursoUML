@@ -16,7 +16,11 @@ public class CategoriaResource {
 	
 	@Autowired
 	private CategoriaService service;
-
+//  Injeção de dependencia, aqui estamos "navegando" entre as camadas do padrão REST
+//  - essa é a camada CONTROLADORES REST que usa a CAMADA DE SERVIÇO para buscar (find) dados na DAO 'CAMADA DE ACESSO A DADOS (REPOSITORY)
+//  Hierarquia: (ver as injeções de dependencia em cada classe que segue uma escadinha mesmo).
+//  RESTCONTROLLER (CategoriaResource) - SERVICE (CategoriaService) - REPOSITORY (dados - CategoriaRepository) essa por sua vez é uma interface que extende la da JPAREPOSITORY.
+	
 	@RequestMapping(value="/{id}", method=RequestMethod.GET)
 	public ResponseEntity<?> find(@PathVariable Integer id) {
 //         O resposeEntity encapsula/armazena varias informações de requisição http em um serviço mestre
