@@ -22,11 +22,11 @@ public class CategoriaResource {
 //  RESTCONTROLLER (CategoriaResource) - SERVICE (CategoriaService) - REPOSITORY (dados - CategoriaRepository) essa por sua vez é uma interface que extende la da JPAREPOSITORY.
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.GET)
-	public ResponseEntity<?> find(@PathVariable Integer id) {
+	public ResponseEntity<?> buscaPorId(@PathVariable Integer id) {
 //         O resposeEntity encapsula/armazena varias informações de requisição http em um serviço mestre
 //         A ? siginifica que ele pode ser de qualquer tipo (caso não encontre o especifico)
 		
-		Categoria obj = service.buscar(id);
+		Categoria obj = service.buscaPorIdService(id);
 		return ResponseEntity.ok().body(obj);
 //                            ok diz que foi tudo certo na requisição dai passa o obj como corpo da resposta.		
 
