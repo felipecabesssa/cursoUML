@@ -6,11 +6,14 @@ import java.util.Objects;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class ItemPedido implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-// @EmbeddedId quer dizer que ele é um id embutido em um tipo auxiliar
+//  @EmbeddedId quer dizer que ele é um id embutido em um tipo auxiliar
+	@JsonIgnore
 	@EmbeddedId
 	private ItemPedidoPK id = new ItemPedidoPK();
 //  como é um objeto auxiliar a gente tem que instanciar.	
@@ -37,10 +40,12 @@ public class ItemPedido implements Serializable {
 		this.preco = preco;
 	}
 	
+//  Tudo que começa com get o java serializa, por isso colocamos o jsonIgnore para evitar referencia ciclica.	
+	@JsonIgnore
 	public Pedido getPedido() {
 		return id.getPedido();
 	}
-	
+
 	public Produto getProduto() {
 		return id.getProduto();
 	}
