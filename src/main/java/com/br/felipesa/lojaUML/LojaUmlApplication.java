@@ -13,6 +13,7 @@ import com.br.felipesa.lojaUML.domain.Cidade;
 import com.br.felipesa.lojaUML.domain.Cliente;
 import com.br.felipesa.lojaUML.domain.Endereco;
 import com.br.felipesa.lojaUML.domain.Estado;
+import com.br.felipesa.lojaUML.domain.ItemPedido;
 import com.br.felipesa.lojaUML.domain.Pagamento;
 import com.br.felipesa.lojaUML.domain.PagamentoComBoleto;
 import com.br.felipesa.lojaUML.domain.PagamentoComCartao;
@@ -25,6 +26,7 @@ import com.br.felipesa.lojaUML.repositories.CidadeRepository;
 import com.br.felipesa.lojaUML.repositories.ClienteRepository;
 import com.br.felipesa.lojaUML.repositories.EnderecoRepository;
 import com.br.felipesa.lojaUML.repositories.EstadoRepository;
+import com.br.felipesa.lojaUML.repositories.ItemPedidoRepository;
 import com.br.felipesa.lojaUML.repositories.PagamentoRepository;
 import com.br.felipesa.lojaUML.repositories.PedidoRepository;
 import com.br.felipesa.lojaUML.repositories.ProdutoRepository;
@@ -56,6 +58,9 @@ public class LojaUmlApplication implements CommandLineRunner {
 	
 	@Autowired
 	private PagamentoRepository pagamentoRepository;
+	
+	@Autowired
+	private ItemPedidoRepository itemPedidoRepository;
 	
 	public static void main(String[] args) {
 		SpringApplication.run(LojaUmlApplication.class, args);
@@ -132,6 +137,21 @@ public class LojaUmlApplication implements CommandLineRunner {
 
 		pedidoRepository.saveAll(Arrays.asList(ped1, ped2));
 		pagamentoRepository.saveAll(Arrays.asList(pagto1, pagto2));
+		
+//      Instanciando itens de pedido
+		
+		ItemPedido ip1 = new ItemPedido(ped1, p1, 0.00, 1, 2000.00);
+		ItemPedido ip2 = new ItemPedido(ped1, p3, 0.00, 2, 80.00);
+		ItemPedido ip3 = new ItemPedido(ped2, p2, 100.00, 1, 800.00);
+
+		ped1.getItens().addAll(Arrays.asList(ip1, ip2));
+		ped2.getItens().addAll(Arrays.asList(ip3));
+
+		p1.getItens().addAll(Arrays.asList(ip1));
+		p2.getItens().addAll(Arrays.asList(ip3));
+		p3.getItens().addAll(Arrays.asList(ip2));
+
+		itemPedidoRepository.saveAll(Arrays.asList(ip1, ip2, ip3));	
 		
 	}
 
